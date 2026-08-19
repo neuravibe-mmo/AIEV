@@ -147,14 +147,39 @@ node start/build-stamp.mjs --check
 
 ### 7.1. Chế độ Development (Hot-reload)
 
-Dành cho lập trình viên cần chỉnh sửa code trực tiếp:
+Dành cho lập trình viên cần chỉnh sửa code trực tiếp.
 
+#### A. Chạy đồng thời cả Backend và Frontend (Khuyên dùng)
 ```bash
+# Chạy đồng thời cả Backend (:6869) và Frontend (:6868)
 npm run dev
 ```
+---
 
-- **Web UI:** [http://localhost:6868](http://localhost:6868)
+#### B. Chạy riêng từng dịch vụ
+
+**Cách 1: Chạy từ thư mục gốc (qua npm workspace)**
+```bash
+# Chỉ chạy Backend Server (Port 6869)
+npm run dev -w apps/server
+
+# Chỉ chạy Frontend Web UI (Port 6868)
+npm run dev -w apps/web
+```
+
+**Cách 2: Chạy trực tiếp từ thư mục con**
+```bash
+# Backend
+cd apps/server && npm run dev
+
+# Frontend
+cd apps/web && npm run dev
+```
+
+
+- **Web UI (Frontend):** [http://localhost:6868](http://localhost:6868)
 - **Backend API:** [http://localhost:6869](http://localhost:6869)
+- **Kiểm tra trạng thái Backend (Health Check):** [http://localhost:6869/api/health](http://localhost:6869/api/health)
 - Web UI tự động proxy các request `/api/*` và `/media/*` sang Backend.
 
 ### 7.2. Chế độ Production (Đã build)
